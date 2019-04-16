@@ -13,4 +13,5 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the owner.
-        return obj.owner == request.user
+        # return request.user.is_superuser or obj.owner == request.user
+        return request.user.is_superuser or obj.owner == request.user

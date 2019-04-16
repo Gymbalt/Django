@@ -1,9 +1,9 @@
 from polls.models import Question, Choice
 from rest_framework import serializers
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 
-class QuestionSerializer(serializers.HyperlinkedModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ('id', 'url', 'question_text', 'pub_date')
@@ -12,19 +12,20 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
         super().save(owner=self.context['request'].user)
 
 
-class ChoiceSerializer(serializers.HyperlinkedModelSerializer):
+class ChoicesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Choice
         fields = ('id', 'url', 'question', 'choice_text', 'votes')
 
-    def save(self, *args, **kwargs):
-        super().save(owner=self.context['request'].user)
 
-
-class UserSerializer(serializers.ModelSerializer):
-    questions = serializers.PrimaryKeyRelatedField(many=True, queryset=Question.objects.all())
-    choices = serializers.PrimaryKeyRelatedField(many=True, queryset=Choice.objects.all())
-
+class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id', 'username', 'questions', 'choices')
+        model = Choice
+        fields = ('id', 'url', 'choice_text', 'votes')
+
+
+# class UserSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = User
+#         fields = ('id', 'username')

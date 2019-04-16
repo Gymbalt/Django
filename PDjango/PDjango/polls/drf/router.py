@@ -1,9 +1,10 @@
-from polls.drf.viewsets import QuestionsViewSet, ChoicesViewSet, UsersViewSet
-from rest_framework import routers
-from django.urls import path
+from rest_framework_nested import routers
+from .viewsets import QuestionViewSet, ChoiceViewSet, ChoicesViewSet
 
-router = routers.DefaultRouter()
-router.register('questions', QuestionsViewSet)
+router = routers.SimpleRouter()
+router.register('questions', QuestionViewSet)
 router.register('choices', ChoicesViewSet)
-router.register('users', UsersViewSet)
+
+questions_router = routers.NestedSimpleRouter(router, 'questions', lookup='question')
+questions_router.register('choices', ChoiceViewSet, base_name='question-choices')
 

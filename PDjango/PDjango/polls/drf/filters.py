@@ -1,6 +1,6 @@
 from django_filters import rest_framework as filters
 from polls.models import Choice, Question
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 
 class QuestionFilter(filters.FilterSet):
@@ -21,9 +21,9 @@ class ChoiceFilter(filters.FilterSet):
         }
 
 
-class UserFilter(filters.FilterSet):
-    class Meta:
-        model = User
-        fields = {
-            'username': ['icontains'],
-        }
+# class UserFilter(filters.FilterSet):
+#     class Meta:
+#         model = User
+#         fields = {
+#             'username': ['icontains'],
+#         }
